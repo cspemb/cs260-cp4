@@ -1,20 +1,19 @@
-import { React, useEffect, useMemo, useState, createContext } from "react";
-
-import axios from "axios";
+import { useEffect, useMemo, useState, createContext } from "react";
 
 import {
   CssBaseline,
   ThemeProvider,
   createTheme,
   useMediaQuery,
-  Button,
 } from "@mui/material";
 
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import AppRoutes from "./routes";
 
 const STORED_COLORMODE_KEY = "colorMode";
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = createContext({
+  toggleColorMode: () => {},
+  mode: "",
+});
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -50,32 +49,11 @@ function App() {
     });
   };
 
-  const [test, setTest] = useState("Get Not called yet");
-
   return (
-    <ColorModeContext.Provider value={{ toggleColorMode }}>
+    <ColorModeContext.Provider value={{ toggleColorMode, mode: colorMode }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* TODO Put routes here */}
-        <Button variant="contained" onClick={toggleColorMode}>
-          {colorMode === "light" ? <LightModeIcon /> : <DarkModeIcon />} Toggle
-          Theme
-        </Button>
-        <Button
-          variant="outlined"
-          onClick={() =>
-            axios
-              .get("/api/user/test")
-              .then((res) => {
-                setTest(res.data.test);
-              })
-              .catch((e) => {
-                alert(e);
-              })
-          }
-        >
-          {test}
-        </Button>
+        <AppRoutes />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
