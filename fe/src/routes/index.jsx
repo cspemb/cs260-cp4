@@ -5,7 +5,7 @@ import { Layout } from "./components";
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/cp4/fe/build">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
