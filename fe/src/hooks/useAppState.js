@@ -35,5 +35,5 @@ export default function useAppState() {
 }
 
 function initializeSlidedown() {
-  return { message: "", severity: "", duration: 2000 };
+  return { message: "", severity: "", duration: 5000 };
 }

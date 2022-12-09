@@ -53,7 +53,7 @@ function Signup({ handleClose }) {
     } catch (e) {
       appState.dispatch({
         type: "setSlidedown",
-        slidedown: { message: e, severity: "error" },
+        slidedown: { message: e.message, severity: "error" },
       });
     }
     setLoading(false);
