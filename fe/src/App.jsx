@@ -8,12 +8,15 @@ import {
 } from "@mui/material";
 
 import AppRoutes from "./routes";
+import { useAppState } from "./hooks";
 
 const STORED_COLORMODE_KEY = "colorMode";
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
   mode: "",
 });
+
+export const AppStateContext = createContext({});
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -53,7 +56,9 @@ function App() {
     <ColorModeContext.Provider value={{ toggleColorMode, mode: colorMode }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppRoutes />
+        <AppStateContext.Provider value={useAppState()}>
+          <AppRoutes />
+        </AppStateContext.Provider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
